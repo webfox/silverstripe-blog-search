@@ -1,0 +1,29 @@
+{
+  "name"       : "webfox/silverstripe-blog-search",
+  "description": "A Silverstripe extension to add Blog Search functionality",
+  "keywords"   : [
+    "webfox",
+    "silverstripe",
+    "blog",
+    "search"
+  ],
+  "type"       : "silverstripe-module",
+  "require"    : {
+    "silverstripe/cms": "~3.2",
+    "silverstripe/blog": "~2.0"
+  },
+  "license"    : "MIT",
+  "authors"    : [
+    {
+      "name" : "Matthew Hailwood",
+      "email": "matthew@webfox.co.nz"
+    },
+    {
+      "name" : "Otis Wright",
+      "email": "otis@webfox.co.nz"
+    }
+  ],
+  "extra"      : {
+    "installer-name": "silverstripe-blog-search"
+  }
+}

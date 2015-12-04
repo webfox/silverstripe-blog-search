@@ -1,0 +1,15 @@
+---
+Name: blogsearch
+---
+
+Blog:
+  extensions:
+    - BlogSearchBlogExtension
+
+Blog_Controller:
+  extensions:
+    - EnableBlogSearchFormExtension
+
+BlogPost_Controller:
+  extensions:
+    - EnableBlogSearchFormExtension
