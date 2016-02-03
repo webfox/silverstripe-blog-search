@@ -20,6 +20,7 @@ class BlogSearchForm extends Form
         );
 
         $this->addExtraClass("blog-form");
+        $this->extend('updateForm', $this);
 
     }
 
