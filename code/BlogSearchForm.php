@@ -7,6 +7,11 @@ class BlogSearchForm extends Form
     private static $category = true;
 
     private static $allowed_actions = ['search'];
+    
+    private static $field_order = [
+        'Category',
+        'Keyword'
+    ];
 
     public function __construct($controller, $name = "BlogSearchForm")
     {
@@ -88,6 +93,7 @@ class BlogSearchForm extends Form
             $fields->push($keywordField);
         }
 
+        $fields->changeFieldOrder(self::config()->get('field_order'));
 
         $this->extend('updateFormFields', $fields);
 
