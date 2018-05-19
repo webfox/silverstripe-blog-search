@@ -1,13 +1,24 @@
 <?php
 
+namespace WebFox\BlogSearch\Extensions;
+
+use SilverStripe\Control\Controller;
+use SilverStripe\Core\Convert;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\DataList;
+
 /**
- * Class BlogExtension
+ * Class BlogSearchBlogExtension
+ * @package WebFox\BlogSearch\Extensions
  *
  * @property Blog $owner
  */
-class BlogSearchBlogExtension extends SiteTreeExtension
+class BlogSearchBlogExtension extends DataExtension
 {
-
+    /**
+     * @param DataList $blogPosts
+     * @return DataList
+     */
     public function updateGetBlogPosts(DataList &$blogPosts)
     {
         $request = Controller::curr()->getRequest();
@@ -30,7 +41,5 @@ class BlogSearchBlogExtension extends SiteTreeExtension
 
 
         return $blogPosts;
-
     }
-
 }
