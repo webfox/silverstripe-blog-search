@@ -25,6 +25,9 @@ class EnableBlogSearchFormExtension extends Extension
      */
     public function BlogSearchForm()
     {
-        return BlogSearchForm::create($this->owner);
+        $form = BlogSearchForm::create($this->owner);
+        return $form->config()->get('keyword') || $form->config()->get('category')
+            ? $form
+            : false;
     }
 }
