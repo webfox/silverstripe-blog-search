@@ -119,9 +119,7 @@ class BlogSearchForm extends Form
      */
     protected function getFormValidator()
     {
-        $validator = new RequiredFields(array(
-            'Email'
-        ));
+        $validator = new RequiredFields(array());
 
         $this->extend('updateFormValidator', $validator);
 
