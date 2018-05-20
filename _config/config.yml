@@ -1,15 +1,15 @@
 ---
-Name: blogsearch
+Name: blogsearch-config
 ---
 
-Blog:
+SilverStripe\Blog\Model\Blog:
   extensions:
-    - BlogSearchBlogExtension
+    - WebFox\BlogSearch\Extensions\BlogSearchBlogExtension
 
-Blog_Controller:
+SilverStripe\Blog\Model\BlogController:
   extensions:
-    - EnableBlogSearchFormExtension
+    - WebFox\BlogSearch\Extensions\EnableBlogSearchFormExtension
 
-BlogPost_Controller:
+SilverStripe\Blog\Model\BlogPostController:
   extensions:
-    - EnableBlogSearchFormExtension
+    - WebFox\BlogSearch\Extensions\EnableBlogSearchFormExtension

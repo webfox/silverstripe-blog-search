@@ -1,21 +1,54 @@
 <?php
 
+namespace WebFox\BlogSearch\Form;
+
+use SilverStripe\Blog\Model\Blog;
+use SilverStripe\Blog\Model\BlogCategory;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Forms\TextField;
+
+/**
+ * Class BlogSearchForm
+ * @package WebFox\BlogSearch\Form
+ */
 class BlogSearchForm extends Form
 {
-
+    /**
+     * @var bool
+     */
     private static $keyword = true;
+
+    /**
+     * @var bool
+     */
     private static $category = true;
 
+    /**
+     * @var array
+     */
     private static $allowed_actions = ['search'];
-    
+
+    /**
+     * @var array
+     */
     private static $field_order = [
         'Category',
-        'Keyword'
+        'Keyword',
     ];
 
+    /**
+     * BlogSearchForm constructor.
+     * @param $controller
+     * @param string $name
+     */
     public function __construct($controller, $name = "BlogSearchForm")
     {
-
         parent::__construct(
             $controller,
             $name,
@@ -26,7 +59,6 @@ class BlogSearchForm extends Form
 
         $this->addExtraClass("blog-form");
         $this->extend('updateForm', $this);
-
     }
 
     /**
@@ -34,30 +66,26 @@ class BlogSearchForm extends Form
      */
     public function getBlog()
     {
-
         /** @var SiteTree $page */
         $page = Controller::curr()->data();
 
         return $page instanceof Blog ? $page : $page->Parent();
     }
 
-    public function search(array $data, BlogSearchForm $form, SS_HTTPRequest $request)
+    public function search(array $data, BlogSearchForm $form, HTTPRequest $request)
     {
-
         $link = $this->getBlog()->Link();
 
         //if we have keyword and category
         if (isset($data['Category']) && isset($data['Keyword']) && $data['Category'] && $data['Keyword']) {
             $link = $this->getBlog()->Link("?keyword={$data['Keyword']}&category={$data['Category']}");
         } elseif (isset($data['Category']) && $data['Category']) {
-            $link = BlogCategory::get_by_id('BlogCategory', $data['Category'])->getLink();
+            $link = BlogCategory::get()->byID($data['Category'])->getLink();
         } elseif (isset($data['Keyword']) && $data['Keyword']) {
             $link = $this->getBlog()->Link("?keyword={$data['Keyword']}");
         }
 
         return Controller::curr()->redirect($link);
-
-
     }
 
     /**
@@ -65,9 +93,8 @@ class BlogSearchForm extends Form
      */
     protected function getFormFields()
     {
-
         $request = Controller::curr()->getRequest();
-        $fields = new FieldList();
+        $fields = FieldList::create();
 
         if (self::config()->get('category')) {
             $categories = $this->getBlog()->Categories()->map()->toArray();
@@ -93,7 +120,7 @@ class BlogSearchForm extends Form
             $fields->push($keywordField);
         }
 
-        $fields->changeFieldOrder(self::config()->get('field_order'));
+        $fields->changeFieldOrder($this->config()->get('field_order'));
 
         $this->extend('updateFormFields', $fields);
 
@@ -105,8 +132,8 @@ class BlogSearchForm extends Form
      */
     protected function getFormActions()
     {
-        $fieldList = new FieldList(
-            $addAction = new FormAction('search', 'Search')
+        $fieldList = FieldList::create(
+            $addAction = FormAction::create('search', 'Search')
         );
 
         $this->extend('updateFormActions', $fields);
@@ -119,13 +146,12 @@ class BlogSearchForm extends Form
      */
     protected function getFormValidator()
     {
-        $validator = new RequiredFields(array(
-            'Email'
-        ));
+        $validator = RequiredFields::create([
+            'Email',
+        ]);
 
         $this->extend('updateFormValidator', $validator);
 
         return $validator;
     }
-
 }

@@ -17,7 +17,7 @@ The blog search form extension get applied automatically, and the form will have
 However you can disable either component as below:
 
 ```yaml
-BlogSearchForm:
+WebFox\BlogSearch\Form\BlogSearchForm:
   keyword: false
   category: false
 ```
@@ -25,4 +25,4 @@ BlogSearchForm:
 then browse to /dev/build?flush=all
 
 # Requirements
-* Silverstripe 3.2+
+* Silverstripe 4.0+
