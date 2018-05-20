@@ -26,3 +26,5 @@ then browse to /dev/build?flush=all
 
 # Requirements
 * Silverstripe 4.0+
+
+For Silverstripe 3.0+ support please see the v1.0 branch.
