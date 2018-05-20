@@ -146,9 +146,7 @@ class BlogSearchForm extends Form
      */
     protected function getFormValidator()
     {
-        $validator = RequiredFields::create([
-            'Email',
-        ]);
+        $validator = RequiredFields::create([]);
 
         $this->extend('updateFormValidator', $validator);
 
