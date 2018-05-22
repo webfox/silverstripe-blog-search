@@ -32,6 +32,7 @@ class BlogSearchBlogExtension extends DataExtension
                 'Title:PartialMatch' => Convert::raw2sql($searchParam),
                 'Content:PartialMatch' => Convert::raw2sql($searchParam),
                 'Summary:PartialMatch' => Convert::raw2sql($searchParam),
+                'Tags.Title:PartialMatch' => Convert::raw2sql($searchParam),
             ]);
         }
 
