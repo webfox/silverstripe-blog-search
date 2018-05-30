@@ -75,14 +75,28 @@ class BlogSearchForm extends Form
     public function search(array $data, BlogSearchForm $form, HTTPRequest $request)
     {
         $link = $this->getBlog()->Link();
+        $getVars = [];
 
-        //if we have keyword and category
-        if (isset($data['Category']) && isset($data['Keyword']) && $data['Category'] && $data['Keyword']) {
-            $link = $this->getBlog()->Link("?keyword={$data['Keyword']}&category={$data['Category']}");
-        } elseif (isset($data['Category']) && $data['Category']) {
-            $link = BlogCategory::get()->byID($data['Category'])->getLink();
-        } elseif (isset($data['Keyword']) && $data['Keyword']) {
-            $link = $this->getBlog()->Link("?keyword={$data['Keyword']}");
+        // if we have a category
+        if (isset($data['Category']) && $data['Category']) {
+            $getVars['category'] = $data['Category'];
+        }
+
+        // if we have a keyword
+        if (isset($data['Keyword']) && $data['Keyword']) {
+            $getVars['keyword'] = $data['Keyword'];
+        }
+
+        $this->extend('updateSearch', $getVars, $data);
+
+        if ($getVars && !empty($getVars)) {
+            // if we only have a category
+            if (count($getVars) === 1 && array_key_exists('category', $getVars)) {
+                $link = BlogCategory::get()->byID($data['Category'])->getLink();
+            } else {
+                // if we have more than just a category
+                $link = $this->getBlog()->Link('?' . http_build_query($getVars));
+            }
         }
 
         return Controller::curr()->redirect($link);
