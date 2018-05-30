@@ -1,0 +1,9 @@
+SilverStripe\Blog\Model\Blog:
+  one:
+    Title: Blog
+    URLSegment: blog
+
+SilverStripe\Blog\Model\BlogCategory:
+  one:
+    Title: one
+    Blog: =>SilverStripe\Blog\Model\Blog.one

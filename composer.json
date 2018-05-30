@@ -26,7 +26,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "WebFox\\BlogSearch\\": "src/"
+            "WebFox\\BlogSearch\\": "src/",
+            "WebFox\\BlogSearch\\Tests\\": "tests/"
         }
     },
     "extra": {
